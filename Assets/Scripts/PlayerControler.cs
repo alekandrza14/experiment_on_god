@@ -48,19 +48,36 @@ public class PlayerControler : MonoBehaviour
     {
 
         paycastGraund();
-        if (isgraund && Input.GetKey(KeyCode.Space))
-        {
-            physic.AddForce(Vector3.up * jump, ForceMode.Impulse);
-        }
-        physic.MovePosition(transform.position + (transform.right * Input.GetAxisRaw("Horizontal") * speedmove * Time.deltaTime)
-            + (transform.forward * Input.GetAxisRaw("Vertical") * speedmove * Time.deltaTime));
+        Movement();
+
+    }
+
+    private void Movement()
+    {
+        
+        physic.AddForce(((transform.right * Input.GetAxisRaw("Horizontal") * speedmove * Time.deltaTime)
+            + (transform.forward * Input.GetAxisRaw("Vertical") * speedmove * Time.deltaTime)*(Mathf.Abs( physic.velocity.y*0.05f)+1f)),ForceMode.VelocityChange);
         if (Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Vertical") != 0)
         {
             Walke();
         }
-
     }
+
     void Update()
+    {
+        Rorateing();
+        Jumping();
+    }
+
+    private void Jumping()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            physic.AddForce(Vector3.up * jump, ForceMode.Impulse);
+        }
+    }
+
+    private void Rorateing()
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
@@ -70,7 +87,5 @@ public class PlayerControler : MonoBehaviour
             transform.Rotate(0, Input.GetAxisRaw("Mouse X") * Time.fixedDeltaTime * speedrotate, 0);
         }
         else Cursor.lockState = CursorLockMode.None;
-
-
     }
 }

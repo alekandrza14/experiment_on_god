@@ -857,7 +857,7 @@ MonoBehaviour:
   physic: {fileID: 5652928263895632544}
   cameratransform: {fileID: 1629159737250408081}
   animator: {fileID: 1133319731315625042}
-  speedmove: 10
+  speedmove: 30
   speedrotate: 120
   jump: 8
 --- !u!54 &5652928263895632544
